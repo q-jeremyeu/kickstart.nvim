@@ -797,6 +797,20 @@ require('lazy').setup {
     end,
   },
   {
+    'nvim-tree/nvim-tree.lua',
+    version = '*',
+    lazy = false,
+    keys = {
+      { '<leader>ft', '<cmd>NvimTreeToggle<CR>', desc = 'toggle NvimTree' },
+    },
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
+      require('nvim-tree').setup {}
+    end,
+  },
+  {
     'scalameta/nvim-metals',
     dependencies = {
       'nvim-lua/plenary.nvim',
