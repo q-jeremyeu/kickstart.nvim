@@ -110,7 +110,7 @@ vim.opt.showmode = false
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.opt.clipboard = 'unnamedplus'
+-- vim.opt.clipboard = 'unnamedplus'
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -275,11 +275,30 @@ require('lazy').setup {
 
       -- Document existing key chains
       require('which-key').register {
-        ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-        ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-        ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+        ['<leader>c'] = {
+          _ = 'which_key_ignore',
+          name = '[C]ode',
+        },
+        ['<leader>d'] = {
+          _ = 'which_key_ignore',
+          name = '[D]ocument',
+        },
+        ['<leader>f'] = {
+          _ = 'which_key_ignore',
+          name = '[F]ile Tree',
+        },
+        ['<leader>r'] = {
+          _ = 'which_key_ignore',
+          name = '[R]ename',
+        },
+        ['<leader>s'] = {
+          _ = 'which_key_ignore',
+          name = '[S]earch',
+        },
+        ['<leader>w'] = {
+          _ = 'which_key_ignore',
+          name = '[W]orkspace',
+        },
       }
     end,
   },
@@ -818,6 +837,8 @@ require('lazy').setup {
     ft = { 'scala', 'sbt', 'java' },
     opts = function()
       local metals_config = require('metals').bare_config()
+      metals_config.find_root_dir_max_project_nesting = 2
+      metals_config.init_options.statusBarProvider = 'off'
       metals_config.on_attach = function(client, bufnr)
         -- your on_attach function
       end
