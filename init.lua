@@ -275,30 +275,18 @@ require('lazy').setup {
 
       -- Document existing key chains
       require('which-key').register {
-        ['<leader>c'] = {
-          _ = 'which_key_ignore',
-          name = '[C]ode',
-        },
-        ['<leader>d'] = {
-          _ = 'which_key_ignore',
-          name = '[D]ocument',
-        },
-        ['<leader>f'] = {
-          _ = 'which_key_ignore',
-          name = '[F]ile Tree',
-        },
-        ['<leader>r'] = {
-          _ = 'which_key_ignore',
-          name = '[R]ename',
-        },
-        ['<leader>s'] = {
-          _ = 'which_key_ignore',
-          name = '[S]earch',
-        },
-        ['<leader>w'] = {
-          _ = 'which_key_ignore',
-          name = '[W]orkspace',
-        },
+        { '<leader>c', group = '[C]ode' },
+        { '<leader>c_', hidden = true },
+        { '<leader>d', group = '[D]ocument' },
+        { '<leader>d_', hidden = true },
+        { '<leader>f', group = '[F]ile Tree' },
+        { '<leader>f_', hidden = true },
+        { '<leader>r', group = '[R]ename' },
+        { '<leader>r_', hidden = true },
+        { '<leader>s', group = '[S]earch' },
+        { '<leader>s_', hidden = true },
+        { '<leader>w', group = '[W]orkspace' },
+        { '<leader>w_', hidden = true },
       }
     end,
   },
@@ -334,7 +322,7 @@ require('lazy').setup {
       -- Useful for getting pretty icons, but requires special font.
       --  If you already have a Nerd Font, or terminal set up with fallback fonts
       --  you can enable this
-      -- { 'nvim-tree/nvim-web-devicons' }
+      { 'nvim-tree/nvim-web-devicons' }
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -569,6 +557,10 @@ require('lazy').setup {
           -- capabilities = {},
           settings = {
             Lua = {
+              diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { 'vim' },
+              },
               runtime = { version = 'LuaJIT' },
               workspace = {
                 checkThirdParty = false,
@@ -800,7 +792,7 @@ require('lazy').setup {
 
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup {
-        ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'vim', 'vimdoc' },
+        ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'scala', 'vim', 'vimdoc' },
         -- Autoinstall languages that are not installed
         auto_install = true,
         highlight = { enable = true },
@@ -826,19 +818,31 @@ require('lazy').setup {
       'nvim-tree/nvim-web-devicons',
     },
     config = function()
-      require('nvim-tree').setup {}
+      require('nvim-tree').setup {
+        git = {
+          timeout = 5000,
+        },
+      }
     end,
   },
   {
     'scalameta/nvim-metals',
     dependencies = {
       'nvim-lua/plenary.nvim',
+      {
+        'j-hui/fidget.nvim',
+        opts = {},
+      },
     },
     ft = { 'scala', 'sbt', 'java' },
     opts = function()
       local metals_config = require('metals').bare_config()
-      metals_config.find_root_dir_max_project_nesting = 2
+      metals_config.find_root_dir_max_project_nesting = 3
       metals_config.init_options.statusBarProvider = 'off'
+      metals_config.settings = {
+        showImplicitArguments = true,
+      }
+      metals_config.capabilities = require('cmp_nvim_lsp').default_capabilities()
       metals_config.on_attach = function(client, bufnr)
         -- your on_attach function
       end
@@ -855,6 +859,9 @@ require('lazy').setup {
         group = nvim_metals_group,
       })
     end,
+  },
+  {
+    'sindrets/diffview.nvim'
   },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
