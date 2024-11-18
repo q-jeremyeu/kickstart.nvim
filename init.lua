@@ -356,7 +356,7 @@ require('lazy').setup({
       -- Useful for getting pretty icons, but requires special font.
       --  If you already have a Nerd Font, or terminal set up with fallback fonts
       --  you can enable this
-      { 'nvim-tree/nvim-web-devicons' }
+      { 'nvim-tree/nvim-web-devicons' },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -952,7 +952,6 @@ require('lazy').setup({
     --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
->>>>>>> 2ba39c69736597b60f6033aa3f8526e7c28343d5
   },
   {
     'nvim-tree/nvim-tree.lua',
@@ -1008,7 +1007,7 @@ require('lazy').setup({
     end,
   },
   {
-    'sindrets/diffview.nvim'
+    'sindrets/diffview.nvim',
   },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
